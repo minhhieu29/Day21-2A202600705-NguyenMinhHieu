@@ -29,7 +29,11 @@ def train(
     """
 
     df_train = pd.read_csv(data_path)
-    if data_path == "data/train_phase1.csv" and os.path.exists("data/train_phase2.csv"):
+    if (
+        data_path == "data/train_phase1.csv"
+        and len(df_train) < 5000
+        and os.path.exists("data/train_phase2.csv")
+    ):
         df_phase2 = pd.read_csv("data/train_phase2.csv")
         df_train = pd.concat([df_train, df_phase2], ignore_index=True)
     df_eval = pd.read_csv(eval_path)
